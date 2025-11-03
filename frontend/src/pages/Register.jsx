@@ -31,7 +31,7 @@ export default function Register() {
     }
 
     try {
-      const res = await axios.post("https://mern-stack-backend-ekpf.onrender.com", {
+      const res = await axios.post("https://mern-stack-backend-ekpf.onrender.com/api/users/register", {
         name: form.name,
         email: form.email,
         password: form.password,
