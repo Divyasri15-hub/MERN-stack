@@ -161,4 +161,20 @@ const inputStyle = {
   width: "100%",
   padding: "12px 14px",
   marginBottom: "12px",
-  border
+  borderRadius: "8px",
+  border: "1px solid #dcdcdc",
+  boxSizing: "border-box",
+  transition: "all 0.3s ease",
+};
+
+const buttonStyle = {
+  width: "100%",
+  padding: "12px",
+  background: "#007BFF",
+  color: "white",
+  border: "none",
+  borderRadius: "8px",
+  fontSize: "16px",
+  fontWeight: "600",
+  cursor: "pointer",
+};
