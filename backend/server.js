@@ -23,6 +23,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/hospitals', hospitalRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/appointments', require('./routes/appointments'));
 
 
