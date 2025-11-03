@@ -25,7 +25,12 @@ export default function Register() {
     e.preventDefault();
 
     // ✅ Frontend validation
-    if (!form.name.trim() || !form.email.trim() || !form.password.trim() || !form.confirmPassword.trim()) {
+    if (
+      !form.name.trim() ||
+      !form.email.trim() ||
+      !form.password.trim() ||
+      !form.confirmPassword.trim()
+    ) {
       alert("⚠ Please fill in all required fields");
       return;
     }
@@ -36,42 +41,37 @@ export default function Register() {
     }
 
     try {
-      // ✅ Log data to confirm before sending
       console.log("📩 Sending form data:", form);
 
       const response = await axios.post(
-        "https://mern-stack-backend-ekpf.onrender.com/api/users/register",
+        "https://mern-stack-pzet.onrender.com/api/users/register",
         {
           name: form.name.trim(),
           email: form.email.trim(),
           password: form.password.trim(),
         },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
+        { headers: { "Content-Type": "application/json" } }
       );
 
       console.log("✅ Backend response:", response.data);
 
-      if (response.status === 200 || response.status === 201) {
+      // ✅ Handle all success codes (200–299)
+      if (response.status >= 200 && response.status < 300) {
         alert("✅ Registration successful! Redirecting to login...");
         navigate("/login");
+      } else {
+        alert("⚠ Unexpected server response.");
       }
     } catch (error) {
       console.error("❌ Registration error:", error.response || error.message);
-      if (error.response?.status === 400) {
-        alert("⚠ Missing or invalid fields. Check your inputs.");
-      } else if (
-        error.response?.status === 409 ||
-        error.response?.data?.message === "User already exists"
-      ) {
-        alert("⚠ Email already registered. Try logging in instead.");
-        navigate("/login");
-      } else {
-        alert("❌ Server error. Please try again later.");
-      }
+
+      // ✅ Show detailed message only when server actually failed
+      const msg =
+        error.response?.data?.message ||
+        "❌ Server error during registration. Please try again later.";
+      alert(msg);
     }
-  };
+  }; // <-- ✅ this was missing before!
 
   return (
     <div style={outerStyle}>
@@ -161,20 +161,4 @@ const inputStyle = {
   width: "100%",
   padding: "12px 14px",
   marginBottom: "12px",
-  borderRadius: "8px",
-  border: "1px solid #dcdcdc",
-  boxSizing: "border-box",
-  transition: "all 0.3s ease",
-};
-
-const buttonStyle = {
-  width: "100%",
-  padding: "12px",
-  background: "#007BFF",
-  color: "white",
-  border: "none",
-  borderRadius: "8px",
-  fontSize: "16px",
-  fontWeight: "600",
-  cursor: "pointer",
-};
+  border
