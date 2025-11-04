@@ -22,7 +22,7 @@ export default function Login({ onLogin }) {
     }
 
     try {
-      const res = await axios.post("https://mern-stack-backend-ekpf.onrender.com/api/users/login", {
+      const res = await axios.post("https://mern-stack-backend-ekpf.onrender.com/api/auth/login", {
         email: form.email,
         password: form.password,
       });
