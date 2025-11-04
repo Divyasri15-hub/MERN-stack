@@ -1,15 +1,10 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const connectDB = require('./config/db');
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const connectDB = require("./config/db");
 
-// ✅ Import routes
-const authRoutes = require('./routes/auth');
-const hospitalRoutes = require('./routes/hospitals');
-const appointmentRoutes = require('./routes/appointments');
-const userRoutes = require('./routes/users');
-
+// ✅ Initialize app
 const app = express();
 
 // ✅ Connect to MongoDB
@@ -19,19 +14,19 @@ connectDB();
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 
-// ✅ API Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/hospitals', hospitalRoutes);
-app.use('/api/appointments', appointmentRoutes);
-app.use('/api/users', userRoutes);
+// ✅ API Routes (register all your APIs)
+app.use("/api/auth", require("./routes/auth"));          // Login / Register
+app.use("/api/users", require("./routes/users"));        // Get users
+app.use("/api/hospitals", require("./routes/hospitals"));// Hospital data
+app.use("/api/appointments", require("./routes/appointments")); // Appointment data
 
-// ✅ Serve frontend (React build)
-const __dirnamePath = path.resolve(); // ✅ fixes __dirname issue in Render
+// ✅ Serve frontend build (React)
+const __dirnamePath = path.resolve(); // fixes __dirname in ES module-like environments
 
-app.use(express.static(path.join(__dirnamePath, 'frontend','dist')));
+app.use(express.static(path.join(__dirnamePath, "frontend", "dist")));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirnamePath, 'frontend','dist', 'index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirnamePath, "frontend", "dist", "index.html"));
 });
 
 // ✅ Start server
