@@ -44,7 +44,7 @@ export default function Register() {
       console.log("📩 Sending form data:", form);
 
       const response = await axios.post(
-        "https://mern-stack-pzet.onrender.com/api/users/register",
+        "https://mern-stack-pzet.onrender.com/api/auth/register",
         {
           name: form.name.trim(),
           email: form.email.trim(),
