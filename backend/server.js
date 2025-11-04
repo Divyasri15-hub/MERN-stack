@@ -28,10 +28,10 @@ app.use('/api/users', userRoutes);
 // ✅ Serve frontend (React build)
 const __dirnamePath = path.resolve(); // ✅ fixes __dirname issue in Render
 
-app.use(express.static(path.join(__dirnamePath, 'frontend', 'dist')));
+app.use(express.static(path.join(__dirnamePath, '../frontend/dist')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirnamePath, 'frontend', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirnamePath, '../frontend/dist', 'index.html'));
 });
 
 // ✅ Start server
